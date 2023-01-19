@@ -25,10 +25,7 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logOut(_ sender: Any) {
         let miStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-        
-    //    let logInView = miStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-       // logInView.modalPresentationStyle = .fullScreen
-        
+
         self.tabBarController?.dismiss(animated: true)
         
         
