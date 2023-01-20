@@ -9,6 +9,8 @@ import UIKit
 
 class ShoppingListTableViewController: UITableViewController {
     
+    // var arrayItemsList = [[String:[String:Any]]]()
+    
     var arrayItemsList:[String] = ["Lechuga","Pollo","Atun","Huevos","Leche","Cepillo de dientes","Papel higienico"]
     
     override func viewDidLoad() {
@@ -43,6 +45,33 @@ class ShoppingListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    func leerDatos(){// -> [String]{
+        
+        do{
+            let misDatosLeidos = try Data(contentsOf: miRutaArchivo())
+            arrayItemsList = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [String] ?? []
+        }catch _ {
+            print("Error fatal de lectura. Sin datos")
+        }
+        
+        // return datos
+    }
+    
+    func getDocumentPath() -> URL
+    {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? URL(string: "")!
+    }
+    
+    // devuelve la ruta con todos los documentos del directorio
+    func miRutaArchivo() -> URL
+    {
+        let miPath = getDocumentPath()
+        // let miFicheroURL = miPath.appending(path: "Datos.json")
+        let miFicheroURL = miPath.appendingPathComponent("Datos.json")
+        
+        return miFicheroURL
     }
     /*
     // Override to support conditional editing of the table view.
