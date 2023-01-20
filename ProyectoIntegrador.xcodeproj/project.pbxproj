@@ -21,6 +21,8 @@
 		DB489F502913C66100A5C2F9 /* SingUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB489F4F2913C66100A5C2F9 /* SingUpViewController.swift */; };
 		DB489F522913D44700A5C2F9 /* NewItemShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB489F512913D44700A5C2F9 /* NewItemShoppingListViewController.swift */; };
 		DBB152EF291D344200E0FB3C /* ShoppingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB152EE291D344200E0FB3C /* ShoppingListTableViewController.swift */; };
+		F02C4FD929793DA80094A09E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C4FD829793DA80094A09E /* CollectionViewCell.swift */; };
+		F098EF94297A944700A90524 /* ListasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F098EF93297A944700A90524 /* ListasViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		DB489F4F2913C66100A5C2F9 /* SingUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpViewController.swift; sourceTree = "<group>"; };
 		DB489F512913D44700A5C2F9 /* NewItemShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemShoppingListViewController.swift; sourceTree = "<group>"; };
 		DBB152EE291D344200E0FB3C /* ShoppingListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewController.swift; sourceTree = "<group>"; };
+		F02C4FD829793DA80094A09E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		F098EF93297A944700A90524 /* ListasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListasViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 		DB489F0329126F6300A5C2F9 = {
 			isa = PBXGroup;
 			children = (
+				F098EF93297A944700A90524 /* ListasViewController.swift */,
 				DB489F0E29126F6300A5C2F9 /* ProyectoIntegrador */,
 				DB489F0D29126F6300A5C2F9 /* Products */,
 			);
@@ -80,6 +85,7 @@
 				DB489F292912877800A5C2F9 /* GeneralTabBarController.swift */,
 				DB489F272912858100A5C2F9 /* ProfileViewController.swift */,
 				DB489F1529126F6300A5C2F9 /* Main.storyboard */,
+				F02C4FD829793DA80094A09E /* CollectionViewCell.swift */,
 				DB489F512913D44700A5C2F9 /* NewItemShoppingListViewController.swift */,
 				DB489F4F2913C66100A5C2F9 /* SingUpViewController.swift */,
 				DB489F2B2912881700A5C2F9 /* ResumeProfileNavigationControllerViewController.swift */,
@@ -164,9 +170,11 @@
 			files = (
 				DB489F282912858100A5C2F9 /* ProfileViewController.swift in Sources */,
 				DB489F2429127EF200A5C2F9 /* LogInViewController.swift in Sources */,
+				F02C4FD929793DA80094A09E /* CollectionViewCell.swift in Sources */,
 				DB489F502913C66100A5C2F9 /* SingUpViewController.swift in Sources */,
 				DB489F1429126F6300A5C2F9 /* ViewController.swift in Sources */,
 				DB489F1029126F6300A5C2F9 /* AppDelegate.swift in Sources */,
+				F098EF94297A944700A90524 /* ListasViewController.swift in Sources */,
 				DB489F262912855A00A5C2F9 /* ResumeViewController.swift in Sources */,
 				DBB152EF291D344200E0FB3C /* ShoppingListTableViewController.swift in Sources */,
 				DB489F2C2912881700A5C2F9 /* ResumeProfileNavigationControllerViewController.swift in Sources */,
