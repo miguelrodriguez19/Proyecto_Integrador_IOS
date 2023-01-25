@@ -12,33 +12,41 @@ class ShoppingListTableViewController: UITableViewController {
     @IBOutlet var table: UITableView!
     typealias myItem = [String: Any]
     typealias diccionarioItems = [String:myItem]
-    // var arrayDiccionarios: [diccionarioItems] = [diccionarioItems]()
     
-    let JSONFile = "listOfItems.json"
+    typealias typeUser = [String:String]
+    var currentUser = typeUser()
+    
+    let JSONFile = "listOfItemsByUsers.json"
     let allColors = ["Blue":UIColor.systemBlue, "Red":UIColor.red, "Yellow":UIColor.yellow,"Green":UIColor.green,"Brown":UIColor.brown,"Orange":UIColor.orange,"Gray":UIColor.gray]
     
     var arrayItemsList:[diccionarioItems] = [["producto": ["name": "pan", "color":"Red"]], ["producto": ["name": "leche", "color":"Blue"]], ["producto": ["name": "huevos", "color":"Green"]]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        arrayItemsList = readContentJSON()
+        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        var contentJSON = readContentJSON()
+        arrayItemsList = contentJSON[currentUser["email"]!] ?? []
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        var contentJSON = readContentJSON()
+        arrayItemsList = contentJSON[currentUser["email"]!] ?? []
+        self.table.reloadData()
+    }
     // MARK: - Table view data source
     // ----------------------------- JSON Methods -----------------------------
-    func readContentJSON() -> [diccionarioItems] {
-        var data: [diccionarioItems] = []
+    func readContentJSON() -> [String: [diccionarioItems]] {
+        var data: [String: [diccionarioItems]] = [String: [diccionarioItems]]()
         
         do{
             let misDatosLeidos = try Data(contentsOf: pathToFile(fileName: JSONFile))
             
-            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [diccionarioItems] ?? []
+            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [String: [diccionarioItems]] ?? [String: [diccionarioItems]]()
         }catch _ {
             print("Error fatal de lectura. Sin datos")
         }
@@ -61,12 +69,22 @@ class ShoppingListTableViewController: UITableViewController {
         return miFicheroURL
     }
     
-    // ----------------------------- Table Methods -----------------------------
-    override func viewDidAppear(_ animated: Bool) {
-        arrayItemsList = readContentJSON()
-        self.table.reloadData()
+    func updateJSON(newArr: [diccionarioItems])
+    {
+        var finalDicc = readContentJSON()
+        finalDicc[currentUser["email"]!] = newArr
+        saveJSON(globalDiccToSave: finalDicc)
     }
     
+    func saveJSON(globalDiccToSave: [String: [diccionarioItems]]){
+        do{
+            let misDatoserializados = try JSONSerialization.data(withJSONObject: globalDiccToSave)
+            try misDatoserializados.write(to: pathToFile(fileName: JSONFile))
+        }catch _ {
+                print("Error guardando el archivo")
+        }
+    }
+    // ----------------------------- Table Methods -----------------------------
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -89,6 +107,29 @@ class ShoppingListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let optBorrar = UIContextualAction(style: .normal, title: "Borrar") { action, view, completion in
+            self.arrayItemsList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.updateJSON(newArr: self.arrayItemsList)
+            self.table.reloadData()
+            
+        }
+        optBorrar.image = UIImage(systemName: "trash")
+        optBorrar.backgroundColor = UIColor.red
+        /*
+        let optAnadir = UIContextualAction(style: .normal, title: "Añadir") { action, view, completion in
+           print("Hemos añadido")
+        }
+        optAnadir.image = UIImage(systemName: "plus")
+        optAnadir.backgroundColor = UIColor.green
+        */
+        let config = UISwipeActionsConfiguration(actions: [optBorrar/*, optAnadir*/])
+        config.performsFirstActionWithFullSwipe = false
+        
+        return config
     }
     
     /*

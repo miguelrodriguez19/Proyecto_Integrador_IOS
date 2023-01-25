@@ -18,19 +18,27 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
     typealias myItem = [String: Any]
     typealias diccionarioItems = [String:myItem]
     
-    let JSONFile = "listOfItems.json"
+    typealias typeUser = [String:String]
+    var currentUser = typeUser()
+    
+    let JSONFile = "listOfItemsByUsers.json"
     var colorSeleccionado:String = ""
     var colorArray = [String]()
     let allColors = ["Blue":UIColor.systemBlue, "Red":UIColor.red, "Yellow":UIColor.yellow,"Green":UIColor.green,"Brown":UIColor.brown,"Orange":UIColor.orange,"Gray":UIColor.gray]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
         for (myColor) in allColors.keys.sorted() // <!>Importante Se organizan las claves por orden alfabetico<!>
         {
             colorArray.append(myColor)
         }
         colorSeleccionado = colorArray[0]
         colorPreview.tintColor = allColors[colorArray[0]]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
     }
     
     @IBAction func addItem(_ sender: Any) {
@@ -50,7 +58,7 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
         }
     }
     
-    
+    // ----------------------------- JSON Methods -----------------------------
     // Localiza en el fileManager la carpeta de usuario
     func getDocumentPath() -> URL
     {
@@ -69,38 +77,40 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
     
     func addItemToJSON(itemList: diccionarioItems)
     {
-        let newArray = [itemList]
         if (readContentJSON().isEmpty){
-            saveJSON(arrayToSave: newArray)
+            let newDiccionary: [String: [diccionarioItems]] = [currentUser["email"]!: [itemList]]
+            saveJSON(globalDiccToSave: newDiccionary)
         }else{
-            let finalArray = readContentJSON() + newArray
-            saveJSON(arrayToSave: finalArray)
+            var finalDicc = readContentJSON()
+            let finalArr = (finalDicc[currentUser["email"]!] ?? []) + [itemList]
+            finalDicc[currentUser["email"]!] = finalArr
+            saveJSON(globalDiccToSave: finalDicc)
         }
     }
     
-    func saveJSON(arrayToSave: [diccionarioItems]){
+    func saveJSON(globalDiccToSave: [String: [diccionarioItems]]){
         do{
-            let misDatoserializados = try JSONSerialization.data(withJSONObject: arrayToSave)
+            let misDatoserializados = try JSONSerialization.data(withJSONObject: globalDiccToSave)
             try misDatoserializados.write(to: pathToFile(fileName: JSONFile))
         }catch _ {
                 print("Error guardando el archivo")
         }
     }
     
-    func readContentJSON() -> [diccionarioItems] {
-        var data: [diccionarioItems] = []
+    func readContentJSON() -> [String: [diccionarioItems]] {
+        var data: [String: [diccionarioItems]] = [String: [diccionarioItems]]()
         
         do{
             let misDatosLeidos = try Data(contentsOf: pathToFile(fileName: JSONFile))
             
-            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [diccionarioItems] ?? []
+            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [String: [diccionarioItems]] ?? [String: [diccionarioItems]]()
         }catch _ {
             print("Error fatal de lectura. Sin datos")
         }
         
         return data
     }
-    
+    // ----------------------------- Picker Methods -----------------------------
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
