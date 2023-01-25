@@ -14,7 +14,11 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
     @IBOutlet weak var add: UIButton!
     @IBOutlet weak var colorPreview: UIImageView!
     @IBOutlet weak var colorPicker: UIPickerView!
-    let JSONFile = "lista.json"
+    
+    typealias myItem = [String: Any]
+    typealias diccionarioItems = [String:myItem]
+    
+    let JSONFile = "listOfItems.json"
     var colorSeleccionado:String = ""
     var colorArray = [String]()
     let allColors = ["Blue":UIColor.systemBlue, "Red":UIColor.red, "Yellow":UIColor.yellow,"Green":UIColor.green,"Brown":UIColor.brown,"Orange":UIColor.orange,"Gray":UIColor.gray]
@@ -29,17 +33,13 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
         colorPreview.tintColor = allColors[colorArray[0]]
     }
     
-    /**
-                Create a cell and add it to the shoppingList
-     */
     @IBAction func addItem(_ sender: Any) {
         // Crea y añade una celda a la lista de la pantalla anterior
         let cellInfo = txtName.text ?? ""
-        let cellColor = (allColors[colorSeleccionado]!).hexString
+        let cellColor = colorSeleccionado
         if cellInfo != "" {
-            let myItem = ItemList(itemName: cellInfo, itemColorInHex: cellColor)
-            
-            addItemToJSON(itemList: myItem)
+            let myNewItem : diccionarioItems = ["producto": ["name": cellInfo, "color":cellColor]]
+            addItemToJSON(itemList: myNewItem)
             
             navigationController?.popViewController(animated: true)
             
@@ -67,7 +67,7 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
         return miFicheroURL
     }
     
-    func addItemToJSON(itemList: ItemList)
+    func addItemToJSON(itemList: diccionarioItems)
     {
         let newArray = [itemList]
         if (readContentJSON().isEmpty){
@@ -78,7 +78,7 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
         }
     }
     
-    func saveJSON(arrayToSave: [Any]){
+    func saveJSON(arrayToSave: [diccionarioItems]){
         do{
             let misDatoserializados = try JSONSerialization.data(withJSONObject: arrayToSave)
             try misDatoserializados.write(to: pathToFile(fileName: JSONFile))
@@ -87,13 +87,13 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
         }
     }
     
-    func readContentJSON() -> [ItemList]{
-        var data: [ItemList] = []
+    func readContentJSON() -> [diccionarioItems] {
+        var data: [diccionarioItems] = []
         
         do{
             let misDatosLeidos = try Data(contentsOf: pathToFile(fileName: JSONFile))
             
-            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [ItemList] ?? []
+            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [diccionarioItems] ?? []
         }catch _ {
             print("Error fatal de lectura. Sin datos")
         }
@@ -119,28 +119,5 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
             colorPreview.tintColor = allColors[colorArray[row]]
         }
     }
-    
-    struct ItemList: Codable{
-        var itemName: String
-        var itemColorInHex: String
-    }
-    
 }
 
-extension UIColor {
-    var hexString: String {
-        let color = self.cgColor.components!
-        let r = color[0]
-        let g = color[1]
-        let b = color[2]
-        let a = color[3]
-
-        return String(
-            format: "#%02lX%02lX%02lX%02lX",
-            lroundf(Float(r * 255)),
-            lroundf(Float(g * 255)),
-            lroundf(Float(b * 255)),
-            lroundf(Float(a * 255))
-        )
-    }
-}
