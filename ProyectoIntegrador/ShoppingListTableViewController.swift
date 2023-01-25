@@ -9,86 +9,133 @@ import UIKit
 
 class ShoppingListTableViewController: UITableViewController {
     
-    var arrayItemsList:[String] = ["Lechuga","Pollo","Atun","Huevos","Leche","Cepillo de dientes","Papel higienico"]
+    @IBOutlet var table: UITableView!
+    typealias myItem = [String: Any]
+    typealias diccionarioItems = [String:myItem]
+    // var arrayDiccionarios: [diccionarioItems] = [diccionarioItems]()
+    
+    let JSONFile = "listOfItems.json"
+    let allColors = ["Blue":UIColor.systemBlue, "Red":UIColor.red, "Yellow":UIColor.yellow,"Green":UIColor.green,"Brown":UIColor.brown,"Orange":UIColor.orange,"Gray":UIColor.gray]
+    
+    var arrayItemsList:[diccionarioItems] = [["producto": ["name": "pan", "color":"Red"]], ["producto": ["name": "leche", "color":"Blue"]], ["producto": ["name": "huevos", "color":"Green"]]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        arrayItemsList = readContentJSON()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
     // MARK: - Table view data source
-
+    // ----------------------------- JSON Methods -----------------------------
+    func readContentJSON() -> [diccionarioItems] {
+        var data: [diccionarioItems] = []
+        
+        do{
+            let misDatosLeidos = try Data(contentsOf: pathToFile(fileName: JSONFile))
+            
+            data = try JSONSerialization.jsonObject(with: misDatosLeidos) as! [diccionarioItems] ?? []
+        }catch _ {
+            print("Error fatal de lectura. Sin datos")
+        }
+        
+        return data
+    }
+    
+    // Localiza en el fileManager la carpeta de usuario
+    func getDocumentPath() -> URL
+    {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? URL(string: "")!
+    }
+    
+    // devuelve la ruta con todos los documentos del directorio
+    func pathToFile(fileName: String) -> URL
+    {
+        let miPath = getDocumentPath()
+        // let miFicheroURL = miPath.appending(path: "Datos.json")
+        let miFicheroURL = miPath.appendingPathComponent(fileName)
+        return miFicheroURL
+    }
+    
+    // ----------------------------- Table Methods -----------------------------
+    override func viewDidAppear(_ animated: Bool) {
+        arrayItemsList = readContentJSON()
+        self.table.reloadData()
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return arrayItemsList.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as! itemCell
         // Configure the cell...
-        cell.lblName.text = arrayItemsList[indexPath.row]
+        let item = arrayItemsList[indexPath.row]["producto"]
+        cell.lblName.text = item?["name"] as! String
+        cell.colorTag.tintColor = allColors[item?["color"] as! String]
         return cell
     }
-
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 class itemCell: UITableViewCell{
     @IBOutlet weak var lblName: UILabel!

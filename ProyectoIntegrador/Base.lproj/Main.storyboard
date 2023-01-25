@@ -87,6 +87,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="table" destination="7XL-t7-ftb" id="elg-q8-ck5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DiZ-CQ-wXz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -133,17 +136,29 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add"/>
                                 <connections>
+                                    <action selector="addItem:" destination="Yc0-Z9-z65" eventType="touchUpInside" id="Kw7-M0-fch"/>
                                     <action selector="logIn:" destination="Pdc-1s-MaM" eventType="touchUpInside" id="rLw-pS-afX"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S8K-Jt-VWf">
                                 <rect key="frame" x="44" y="308" width="232" height="75"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Yc0-Z9-z65" id="VCd-yt-WBY"/>
+                                    <outlet property="delegate" destination="Yc0-Z9-z65" id="pmk-QP-u4n"/>
+                                </connections>
                             </pickerView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WPi-xM-8il">
                                 <rect key="frame" x="312" y="320.5" width="50" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEB-CC-zsF">
+                                <rect key="frame" x="20" y="391" width="341" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1dx-cS-RAJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -151,6 +166,10 @@
                     <navigationItem key="navigationItem" id="ubX-2N-xVp"/>
                     <connections>
                         <outlet property="add" destination="46l-gI-L52" id="y2O-HO-cBl"/>
+                        <outlet property="colorPicker" destination="S8K-Jt-VWf" id="dbb-IG-FDi"/>
+                        <outlet property="colorPreview" destination="WPi-xM-8il" id="4G3-lj-dyW"/>
+                        <outlet property="lblError" destination="GEB-CC-zsF" id="azo-xl-Lue"/>
+                        <outlet property="txtName" destination="UeH-1B-S6g" id="iGL-iM-hQc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dse-iI-O0m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
