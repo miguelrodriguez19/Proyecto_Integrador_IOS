@@ -10,7 +10,7 @@ import UIKit
 class ResumeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
     
     var collectionView: UICollectionView!
-   
+    
     
     private let sectionInsets = UIEdgeInsets(
         top: 10.0,
@@ -21,10 +21,11 @@ class ResumeViewController: UIViewController, UICollectionViewDelegate, UICollec
     private var itemsPerRow: CGFloat = 2
     
     let dataSource: [String] = ["Lista 1", "Lista 2", "Lista 3", "Lista  4", "Lista 5", "Lista 6"]
+    var selectedList: String = "1"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -46,58 +47,64 @@ class ResumeViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedList: String = dataSource[indexPath.item]
+        selectedList = dataSource[indexPath.item]
         
-      //  performSegue(withIdentifier: "showDetail", sender: selectedList)
+        //  performSegue(withIdentifier: "showDetail", sender: selectedList)
         print(selectedList)
-        let destino = ListasViewController()
-        destino.intercambio = selectedList
-
+        
+        //let destino = ListasViewController()
+        //destino.intercambio = selectedList
+        
         
     }
     
-   /* override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail"{
-            let destino = segue.destination as! ListasViewController; destino.intercambio = textToPass!
+            let destino = segue.destination as! ListasViewController
+            destino.intercambio = selectedList
         }
-    }*/
-    
-
-}
-
-
-extension ResumeViewController: UICollectionViewDelegateFlowLayout {
-    
-    // 1
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        // 2
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = view.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
         
-        return CGSize(width: widthPerItem, height: widthPerItem)
-    }
-    
-    // 3
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    
-    // 4
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        return sectionInsets.left
+        
     }
 }
+    
+    
+    extension ResumeViewController: UICollectionViewDelegateFlowLayout {
+        
+        // 1
+        func collectionView(
+            _ collectionView: UICollectionView,
+            layout collectionViewLayout: UICollectionViewLayout,
+            sizeForItemAt indexPath: IndexPath
+        ) -> CGSize {
+            // 2
+            let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+            let availableWidth = view.frame.width - paddingSpace
+            let widthPerItem = availableWidth / itemsPerRow
+            
+            return CGSize(width: widthPerItem, height: widthPerItem)
+        }
+        
+        // 3
+        func collectionView(
+            _ collectionView: UICollectionView,
+            layout collectionViewLayout: UICollectionViewLayout,
+            insetForSectionAt section: Int
+        ) -> UIEdgeInsets {
+            return sectionInsets
+        }
+        
+        // 4
+        func collectionView(
+            _ collectionView: UICollectionView,
+            layout collectionViewLayout: UICollectionViewLayout,
+            minimumLineSpacingForSectionAt section: Int
+        ) -> CGFloat {
+            return sectionInsets.left
+        }
+    }
+    
+
 
