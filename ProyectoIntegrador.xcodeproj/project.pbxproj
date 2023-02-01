@@ -23,6 +23,7 @@
 		DBB152EF291D344200E0FB3C /* ShoppingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB152EE291D344200E0FB3C /* ShoppingListTableViewController.swift */; };
 		F02C4FD929793DA80094A09E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C4FD829793DA80094A09E /* CollectionViewCell.swift */; };
 		F098EF94297A944700A90524 /* ListasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F098EF93297A944700A90524 /* ListasViewController.swift */; };
+		F0CA4BD7298A7F0B00E5EFEE /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CA4BD6298A7F0B00E5EFEE /* NewNoteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		DBB152EE291D344200E0FB3C /* ShoppingListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewController.swift; sourceTree = "<group>"; };
 		F02C4FD829793DA80094A09E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		F098EF93297A944700A90524 /* ListasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListasViewController.swift; sourceTree = "<group>"; };
+		F0CA4BD6298A7F0B00E5EFEE /* NewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +62,6 @@
 		DB489F0329126F6300A5C2F9 = {
 			isa = PBXGroup;
 			children = (
-				F098EF93297A944700A90524 /* ListasViewController.swift */,
 				DB489F0E29126F6300A5C2F9 /* ProyectoIntegrador */,
 				DB489F0D29126F6300A5C2F9 /* Products */,
 			);
@@ -79,6 +80,8 @@
 			children = (
 				DB489F0F29126F6300A5C2F9 /* AppDelegate.swift */,
 				DB489F1129126F6300A5C2F9 /* SceneDelegate.swift */,
+				F098EF93297A944700A90524 /* ListasViewController.swift */,
+				F0CA4BD6298A7F0B00E5EFEE /* NewNoteViewController.swift */,
 				DB489F1329126F6300A5C2F9 /* ViewController.swift */,
 				DB489F2329127EF200A5C2F9 /* LogInViewController.swift */,
 				DB489F252912855A00A5C2F9 /* ResumeViewController.swift */,
@@ -177,6 +180,7 @@
 				F098EF94297A944700A90524 /* ListasViewController.swift in Sources */,
 				DB489F262912855A00A5C2F9 /* ResumeViewController.swift in Sources */,
 				DBB152EF291D344200E0FB3C /* ShoppingListTableViewController.swift in Sources */,
+				F0CA4BD7298A7F0B00E5EFEE /* NewNoteViewController.swift in Sources */,
 				DB489F2C2912881700A5C2F9 /* ResumeProfileNavigationControllerViewController.swift in Sources */,
 				DB489F2A2912877800A5C2F9 /* GeneralTabBarController.swift in Sources */,
 				DB489F1229126F6300A5C2F9 /* SceneDelegate.swift in Sources */,
