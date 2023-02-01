@@ -10,12 +10,15 @@ import UIKit
 class ListasViewController: UIViewController {
 
     
+    @IBOutlet weak var textViewContent: UITextView!
     @IBOutlet var labelListaSeleccionada: UILabel!
     var intercambio: String?
+    var intercambioContent: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         labelListaSeleccionada.text = intercambio
+        textViewContent.text = intercambioContent
         // Do any additional setup after loading the view.
     }
     
@@ -23,9 +26,7 @@ class ListasViewController: UIViewController {
         labelListaSeleccionada.text = intercambio
     }*/
     
-    @IBAction func cambiar(_ sender: Any) {
-        labelListaSeleccionada.text = intercambio
-    }
+   
     /*
     // MARK: - Navigation
 

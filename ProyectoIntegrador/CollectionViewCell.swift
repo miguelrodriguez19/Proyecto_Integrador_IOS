@@ -7,13 +7,4 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
-    
-    
-    @IBOutlet weak var labelListas: UILabel!
-    
-    func configure(with nombreListas: String){
-        labelListas.text = nombreListas
-    }
-    
-}
+

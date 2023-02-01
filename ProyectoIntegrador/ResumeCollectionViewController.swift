@@ -1,15 +1,20 @@
 //
-//  ResumeViewController.swift
+//  ResumeCollectionViewController.swift
 //  ProyectoIntegrador
 //
-//  Created by Miguel Rodríguez Herrero on 2/11/22.
+//  Created by Ignacio Moreno Fernández on 1/2/23.
 //
 
 import UIKit
 
-class ResumeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
+private let reuseIdentifier = "Cell"
+
+class ResumeCollectionViewController: UICollectionViewController {
+
     
-    var collectionView2: UICollectionView!
+    
+    @IBOutlet var miColectionView: UICollectionView!
+   // var miCole:cion UICollectionView!
     
     
   /*  private let sectionInsets = UIEdgeInsets(
@@ -33,27 +38,57 @@ class ResumeViewController: UIViewController, UICollectionViewDelegate, UICollec
     var selectedList: String = ""
     var selectedContent: String = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Register cell classes
+        self.miColectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+
         // Do any additional setup after loading the view.
     }
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+    // MARK: UICollectionViewDataSource
+
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
         return dataSource.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = UICollectionViewCell()
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let celdaListas = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? CollectionViewCell2{
+    //override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cell = miCollectionViewCell()
+        
+        if let celdaListas = miColectionView.dequeueReusableCell(withReuseIdentifier: "miCelda", for: indexPath) as? miCollectionViewCell{
             celdaListas.configure(with: dataSource[indexPath.row]["tittle"]!, content: dataSource[indexPath.row]["content"]!)
             cell = celdaListas
         }
         return cell
     }
+
     
-    //Funcion que se utiliza para pasar el titulo de la celda seleccionada al viewController"ListasViewController
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Asignamos a selected lis la lista seleccionada
         selectedList = dataSource[indexPath.item]["tittle"]!
         selectedContent = dataSource[indexPath.item]["content"]!
@@ -65,11 +100,41 @@ class ResumeViewController: UIViewController, UICollectionViewDelegate, UICollec
         //Envio a la otra pantalla
         self.navigationController?.pushViewController(miVista, animated: true)
         print(selectedList)
-        
     }
-}
 
-class CollectionViewCell2: UICollectionViewCell {
+    // MARK: UICollectionViewDelegate
+
+    /*
+    // Uncomment this method to specify if the specified item should be highlighted during tracking
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    */
+
+    /*
+    // Uncomment this method to specify if the specified item should be selected
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    */
+
+    /*
+    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return false
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+    
+    }
+    */
+
+}
+class miCollectionViewCell: UICollectionViewCell {
     
     
     @IBOutlet weak var infoListas: UITextView!
@@ -82,7 +147,7 @@ class CollectionViewCell2: UICollectionViewCell {
     
 }
    
-    extension ResumeViewController: UICollectionViewDelegateFlowLayout {
+    extension ResumeCollectionViewController: UICollectionViewDelegateFlowLayout {
         
         // 1
         func collectionView(
