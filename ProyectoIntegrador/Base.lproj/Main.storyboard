@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pdc-1s-MaM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pdc-1s-MaM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -15,7 +16,7 @@
                 <navigationController id="qJv-iG-1N3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Shopping list" image="cart.fill" catalog="system" id="9u6-tB-2NN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rhr-xu-UX7">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -36,7 +37,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" id="p0H-1K-KYM" userLabel="ItemCell" customClass="itemCell" customModule="ProyectoIntegrador" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p0H-1K-KYM" id="0nk-t1-a1s">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -78,11 +79,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Shopping list" id="Dew-eX-Hjv">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="trash" catalog="system" id="ixi-4e-grb">
-                                <connections>
-                                    <action selector="deleteAllItems:" destination="Wfr-9r-1rO" id="QC5-D0-Zmk"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem title="Item" image="ellipsis" catalog="system" id="ixi-4e-grb"/>
                             <barButtonItem image="plus" catalog="system" id="Wnd-z0-f6d">
                                 <connections>
                                     <segue destination="Yc0-Z9-z65" kind="show" id="pLN-sR-cjP"/>
@@ -277,7 +274,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Perfil" id="d5a-nv-BOF">
                                 <connections>
-                                    <segue destination="uen-Ej-9ho" kind="presentation" id="bSd-R9-uBY"/>
+                                    <segue destination="uen-Ej-9ho" kind="show" id="bSd-R9-uBY"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="+" id="Glq-Ml-KW1">
@@ -451,7 +448,7 @@
             <objects>
                 <viewController id="uen-Ej-9ho" customClass="ProfileViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="se2-zl-n5o">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygu-tB-KIm">
@@ -516,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OAt-wv-5wX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1043" y="-627"/>
+            <point key="canvasLocation" x="-1043.4782608695652" y="-627.45535714285711"/>
         </scene>
         <!--Resume-->
         <scene sceneID="TOR-80-Bel">
@@ -524,7 +521,7 @@
                 <navigationController id="GgN-8Y-Gdh" customClass="ResumeProfileNavigationControllerViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Resume" image="house.fill" catalog="system" id="IA9-DJ-3ZV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6lF-8G-GZb">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -538,7 +535,7 @@
         <!--Log In View Controller-->
         <scene sceneID="qrH-ba-1R9">
             <objects>
-                <viewController storyboardIdentifier="LogInViewController" id="Pdc-1s-MaM" customClass="LogInViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pdc-1s-MaM" customClass="LogInViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bYX-pZ-7xR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -740,16 +737,16 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
-        <image name="house.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="circle.fill" catalog="system" width="128" height="123"/>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="house.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
+        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <image name="square" catalog="system" width="128" height="114"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
