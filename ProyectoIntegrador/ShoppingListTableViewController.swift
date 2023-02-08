@@ -19,7 +19,7 @@ class ShoppingListTableViewController: UITableViewController {
     let JSONFile = "listOfItemsByUsers.json"
     let allColors = ["Blue":UIColor.systemBlue, "Red":UIColor.red, "Yellow":UIColor.yellow,"Green":UIColor.green,"Brown":UIColor.brown,"Orange":UIColor.orange,"Gray":UIColor.gray]
     
-    var arrayItemsList:[diccionarioItems] = [["producto": ["name": "pan", "color":"Red"]], ["producto": ["name": "leche", "color":"Blue"]], ["producto": ["name": "huevos", "color":"Green"]]]
+    var arrayItemsList:[diccionarioItems] = [diccionarioItems]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,30 @@ class ShoppingListTableViewController: UITableViewController {
         arrayItemsList = contentJSON[currentUser["email"]!] ?? []
         self.table.reloadData()
     }
-    // MARK: - Table view data source
+    
+    @IBAction func deleteAllItems(_ sender: Any) {
+        let alertController = UIAlertController(title: "Delete All", message: "Do you want to delete all items?", preferredStyle: .alert)
+        
+        
+        let alertButtonAcept = UIAlertAction(title: "Yes", style: .destructive)
+        {
+            (done) in
+            self.arrayItemsList.removeAll()
+            self.updateJSON(newArr: self.arrayItemsList)
+            self.table.reloadData()
+        }
+        
+        let alertButton = UIAlertAction(title: "No", style: .default)
+        {
+            (done) in
+        }
+        alertController.addAction(alertButton)
+        alertController.addAction(alertButtonAcept)
+        if (arrayItemsList.count > 0) {
+        present(alertController, animated: true)
+    
+        }
+    }
     // ----------------------------- JSON Methods -----------------------------
     func readContentJSON() -> [String: [diccionarioItems]] {
         var data: [String: [diccionarioItems]] = [String: [diccionarioItems]]()
@@ -110,7 +133,7 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let optBorrar = UIContextualAction(style: .normal, title: "Borrar") { action, view, completion in
+        let optBorrar = UIContextualAction(style: .normal, title: "Delete") { action, view, completion in
             self.arrayItemsList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             self.updateJSON(newArr: self.arrayItemsList)
@@ -189,13 +212,18 @@ class itemCell: UITableViewCell{
         
         if isCheck {
             isCheck = false
-            btnCheck.imageView?.image = UIImage(systemName: "square")
+      
+            
+          
+            btnCheck.setImage( UIImage(systemName: "square"), for: .normal)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: 0))
         }else{
             isCheck = true
-            btnCheck.imageView?.image = UIImage(systemName: "multiply.square")
+       
+            btnCheck.setImage( UIImage(systemName: "multiply.square"), for: .normal)
             attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
         }
         lblName.attributedText = attributeString
     }
 }
+
