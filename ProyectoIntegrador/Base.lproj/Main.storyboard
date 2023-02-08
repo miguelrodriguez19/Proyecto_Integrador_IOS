@@ -274,7 +274,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Perfil" id="d5a-nv-BOF">
                                 <connections>
-                                    <segue destination="uen-Ej-9ho" kind="presentation" id="bSd-R9-uBY"/>
+                                    <segue destination="uen-Ej-9ho" kind="show" id="bSd-R9-uBY"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="+" id="Glq-Ml-KW1">
@@ -448,7 +448,7 @@
             <objects>
                 <viewController id="uen-Ej-9ho" customClass="ProfileViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="se2-zl-n5o">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygu-tB-KIm">
@@ -513,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OAt-wv-5wX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1043" y="-627"/>
+            <point key="canvasLocation" x="-1043.4782608695652" y="-627.45535714285711"/>
         </scene>
         <!--Resume-->
         <scene sceneID="TOR-80-Bel">
@@ -535,7 +535,7 @@
         <!--Log In View Controller-->
         <scene sceneID="qrH-ba-1R9">
             <objects>
-                <viewController storyboardIdentifier="LogInViewController" id="Pdc-1s-MaM" customClass="LogInViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pdc-1s-MaM" customClass="LogInViewController" customModule="ProyectoIntegrador" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bYX-pZ-7xR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

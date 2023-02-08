@@ -9,8 +9,16 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    
+    
     @IBOutlet weak var lblUserEmail: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
+    
+    
+    
+    
+    
+    
     typealias typeUser = [String:String]
     var currentUser = typeUser()
     
@@ -25,9 +33,9 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logOut(_ sender: Any) {
         let miStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-
-        self.tabBarController?.dismiss(animated: true)
+       self.tabBarController?.dismiss(animated: true)
         
+        }
         
         
        // present(logInView!, animated: true)
@@ -43,4 +51,4 @@ class ProfileViewController: UIViewController {
     }
     */
 
-}
+
