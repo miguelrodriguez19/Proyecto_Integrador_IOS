@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB4182402993BF6400609180 /* configuracion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB41823F2993BF6400609180 /* configuracion.swift */; };
 		DB489F1029126F6300A5C2F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB489F0F29126F6300A5C2F9 /* AppDelegate.swift */; };
 		DB489F1229126F6300A5C2F9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB489F1129126F6300A5C2F9 /* SceneDelegate.swift */; };
 		DB489F1429126F6300A5C2F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB489F1329126F6300A5C2F9 /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB41823F2993BF6400609180 /* configuracion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = configuracion.swift; sourceTree = "<group>"; };
 		DB489F0C29126F6300A5C2F9 /* ProyectoIntegrador.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProyectoIntegrador.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB489F0F29126F6300A5C2F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB489F1129126F6300A5C2F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				DB489F292912877800A5C2F9 /* GeneralTabBarController.swift */,
 				DB489F272912858100A5C2F9 /* ProfileViewController.swift */,
 				DB489F1529126F6300A5C2F9 /* Main.storyboard */,
+				DB41823F2993BF6400609180 /* configuracion.swift */,
 				F02C4FD829793DA80094A09E /* CollectionViewCell.swift */,
 				DB489F512913D44700A5C2F9 /* NewItemShoppingListViewController.swift */,
 				DB489F4F2913C66100A5C2F9 /* SingUpViewController.swift */,
@@ -179,6 +182,7 @@
 				F02C4FD929793DA80094A09E /* CollectionViewCell.swift in Sources */,
 				F0CA4BD9298A9CA900E5EFEE /* ResumeCollectionViewController.swift in Sources */,
 				DB489F502913C66100A5C2F9 /* SingUpViewController.swift in Sources */,
+				DB4182402993BF6400609180 /* configuracion.swift in Sources */,
 				DB489F1429126F6300A5C2F9 /* ViewController.swift in Sources */,
 				DB489F1029126F6300A5C2F9 /* AppDelegate.swift in Sources */,
 				F098EF94297A944700A90524 /* ListasViewController.swift in Sources */,

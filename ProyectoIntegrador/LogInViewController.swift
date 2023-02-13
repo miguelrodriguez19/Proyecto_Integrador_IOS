@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class LogInViewController: UIViewController {
     
@@ -80,8 +81,7 @@ class LogInViewController: UIViewController {
         txtPassword.text = ""
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?)
-    -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         let email:String = txtUsername.text ?? ""
         let pwd:String = txtPassword.text ?? ""
 
@@ -90,18 +90,78 @@ class LogInViewController: UIViewController {
                 lblError.text = "Fill all fields."
                 return false
             }
-            if searchUser(emailParam: email, pwdParam: pwd) {
-                clearFields()
-                lblError.text = ""
-                return true
-            }else {
-                lblError.text = "Incorrect email or password."
-                clearFields()
-                return false
+
+            let semaphore = DispatchSemaphore(value: 0)
+            var flag = false
+            
+            doLogIn(email: email, password: pwd) { (user, error) in
+                if let error = error {
+                    print(error)
+                    flag = false
+                    semaphore.signal()
+                    return
+                }
+                
+                guard let user = user else {
+                    print("User is missing")
+                    flag = false
+                    semaphore.signal()
+                    return
+                }
+                
+                let userDictionary = [
+                    "cod_user": String(user.cod_user!),
+                    "name": user.name,
+                    "surname": user.surname,
+                    "email": user.email,
+                    "birthday": user.birthday,
+                    "password": user.password
+                ] as [String : String]
+                
+                UserDefaults.standard.set(userDictionary, forKey: "currentUser")
+                flag = true
+                print(userDictionary)
+                semaphore.signal()
             }
-        }else{
+            
+            semaphore.wait()
+            return flag
+        } else {
             clearFields()
             return true
         }
+    }
+
+
+    func doLogIn(email: String, password: String, completion: @escaping (User?, Error?) -> Void) {
+        let url = URL(string: "\(ApiRest.shared.staticURL)users/login/")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        let parameters = ["email": email, "pwd": password]
+        let parameterData = parameters.map { "\($0)=\($1)" }.joined(separator: "&").data(using: .utf8)
+        request.httpBody = parameterData
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let data = data else {
+                let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data is missing"])
+                completion(nil, error)
+                return
+            }
+            
+            do {
+                let user = try JSONDecoder().decode(User.self, from: data)
+                completion(user, nil)
+            } catch let error {
+                completion(nil, error)
+            }
+        }
+        task.resume()
     }
 }
