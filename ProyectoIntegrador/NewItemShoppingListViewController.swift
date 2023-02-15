@@ -28,7 +28,7 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
         for (myColor) in allColors.keys.sorted() // <!>Importante Se organizan las claves por orden alfabetico<!>
         {
             colorArray.append(myColor)
@@ -38,7 +38,7 @@ class NewItemShoppingListViewController:  UIViewController, UIPickerViewDelegate
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
     }
     
     @IBAction func addItem(_ sender: Any) {

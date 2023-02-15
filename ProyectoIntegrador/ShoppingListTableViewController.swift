@@ -23,7 +23,7 @@ class ShoppingListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
         var contentJSON = readContentJSON()
         arrayItemsList = contentJSON[currentUser["email"]!] ?? []
         // Uncomment the following line to preserve selection between presentations
@@ -33,7 +33,7 @@ class ShoppingListTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     override func viewDidAppear(_ animated: Bool) {
-        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
         var contentJSON = readContentJSON()
         arrayItemsList = contentJSON[currentUser["email"]!] ?? []
         self.table.reloadData()

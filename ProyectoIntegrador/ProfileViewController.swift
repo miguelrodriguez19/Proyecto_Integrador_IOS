@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentUser = UserDefaults.standard.object(forKey: "currentUser") as! [String:String]
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
         
         lblUserName.text = currentUser["name"]
         lblUserEmail.text = currentUser["email"]

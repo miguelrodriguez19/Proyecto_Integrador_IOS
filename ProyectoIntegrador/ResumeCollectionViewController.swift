@@ -33,21 +33,28 @@ class ResumeCollectionViewController: UICollectionViewController {
     private var itemsPerRow: CGFloat = 2
     
     //let dataSource: [String] = ["Lista 1", "Lista 2", "Lista 3", "Lista  4", "Lista 5", "Lista 6"]
-    let dataSource: [[String:String]] = [["tittle":"Lista 1", "content":"asdfghjklñ"],["tittle":"Lista 2", "content":"a75ug67hfg6ylñ"],["tittle":"Lista 3", "content":"a56g7u8jk85kfghjklñ"],["tittle":"Lista 4", "content":"asg89l9l0'ñlp"],]
+    var dataSource: [Note] = [Note]()
   //  let dataSource2: [String] = []
     var selectedList: String = ""
     var selectedContent: String = ""
     
+    typealias typeUser = [String:String]
+    var currentUser = typeUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        currentUser = UserDefaults.standard.object(forKey: Config.shared.currentUser) as! [String:String]
+        
+        
+        
         // Register cell classes
         self.miColectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
+        
+        getNotes(id: "\(currentUser["cod_user"]!)")
         // Do any additional setup after loading the view.
     }
 
@@ -63,7 +70,52 @@ class ResumeCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
+    func getNotes(id: String) {
+            let url = URL(string: "\(Config.shared.staticURL)notes/listByUser/\(id)")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
     
+        do{
+            let miDecodificador = JSONDecoder()
+            let misDatos = try Data(contentsOf: url)
+            self.dataSource = try miDecodificador.decode([Note].self, from: misDatos)
+        }
+        catch{
+            print("Erroraco al decodificar JSON")
+        }
+        
+        
+        
+      
+    }
+/*
+    func getNotes2(id: String) {
+            let url = URL(string: "\(Config.shared.staticURL)notes/listByUser/\(id)")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error fetching data: \(error)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                self.dataSource = try JSONDecoder().decode([Note].self, from: data)
+                // use the notes array here
+            } catch let error {
+                print("Error decoding notes response: \(error)")
+            }
+        }
+        task.resume()
+        
+    }
+ */
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -81,17 +133,16 @@ class ResumeCollectionViewController: UICollectionViewController {
         var cell = miCollectionViewCell()
         
         if let celdaListas = miColectionView.dequeueReusableCell(withReuseIdentifier: "miCelda", for: indexPath) as? miCollectionViewCell{
-            celdaListas.configure(with: dataSource[indexPath.row]["tittle"]!, content: dataSource[indexPath.row]["content"]!)
+            celdaListas.configure(with: dataSource[indexPath.row].tittle, content: dataSource[indexPath.row].content)
             cell = celdaListas
         }
         return cell
     }
 
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Asignamos a selected lis la lista seleccionada
-        selectedList = dataSource[indexPath.item]["tittle"]!
-        selectedContent = dataSource[indexPath.item]["content"]!
+        selectedList = dataSource[indexPath.item].tittle
+        selectedContent = dataSource[indexPath.item].content
         //Asignamos miVista al ViewController ListasViewController que le hemos puesto ese id
         let miVista = storyboard?.instantiateViewController(withIdentifier: "listasController") as! ListasViewController
         //Asignamos a la variable intercambio el valor de la celda seleccionada

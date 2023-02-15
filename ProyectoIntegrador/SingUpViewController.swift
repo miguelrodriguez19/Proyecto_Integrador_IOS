@@ -79,7 +79,7 @@ class SingUpViewController: UIViewController {
 
     
     func createUser(user: User, completion: @escaping (_ error: Error?) -> Void) {
-        guard let url = URL(string: "\(ApiRest.shared.staticURL)users/") else { return }
+        guard let url = URL(string: "\(Config.shared.staticURL)users/") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

@@ -7,10 +7,10 @@
 
 import Foundation
 
-class ApiRest {
+class Config {
     
-    let staticURL: String = "http://192.168.156.27:8080/"
-    
+    let staticURL: String = "http://192.168.64.27:8080/"
+    let currentUser: String = "currentUser"
     // Endpoints of users
     let getAllUsers: String = "users"
     let getUserById: String = "users/"
@@ -27,9 +27,9 @@ class ApiRest {
     let putNote:String = "notes/" // notes/{id}/
     let deleteNote:String = "notes/delete/"
     
-    static let shared: ApiRest = {
-        let instanciaApiRest = ApiRest()
-        return instanciaApiRest
+    static let shared: Config = {
+        let instanciaConfig = Config()
+        return instanciaConfig
     }()
 }
 
@@ -40,4 +40,17 @@ struct User: Codable {
     let email: String
     let birthday: String
     let password: String
+}
+
+struct NotesResponse: Decodable {
+    let notes: [Note]
+}
+
+struct Note: Codable {
+    let cod_note: Int?
+    let tittle: String
+    let content: String
+    let creation_date: String
+    let modification_date: String
+    let cod_user: Int
 }

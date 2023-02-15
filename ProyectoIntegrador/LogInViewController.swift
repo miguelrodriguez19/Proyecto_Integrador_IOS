@@ -118,7 +118,7 @@ class LogInViewController: UIViewController {
                     "password": user.password
                 ] as [String : String]
                 
-                UserDefaults.standard.set(userDictionary, forKey: "currentUser")
+                UserDefaults.standard.set(userDictionary, forKey: Config.shared.currentUser)
                 flag = true
                 print(userDictionary)
                 semaphore.signal()
@@ -134,7 +134,7 @@ class LogInViewController: UIViewController {
 
 
     func doLogIn(email: String, password: String, completion: @escaping (User?, Error?) -> Void) {
-        let url = URL(string: "\(ApiRest.shared.staticURL)users/login/")!
+        let url = URL(string: "\(Config.shared.staticURL)users/login/")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
