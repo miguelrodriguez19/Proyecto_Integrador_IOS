@@ -37,7 +37,7 @@ class ResumeCollectionViewController: UICollectionViewController {
   //  let dataSource2: [String] = []
     var selectedList: String = ""
     var selectedContent: String = ""
-    
+    var selectedNote: Note? = nil
     typealias typeUser = [String:String]
     var currentUser = typeUser()
     
@@ -56,8 +56,14 @@ class ResumeCollectionViewController: UICollectionViewController {
         
         getNotes(id: "\(currentUser["cod_user"]!)")
         // Do any additional setup after loading the view.
+        
     }
 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getNotes(id: "\(currentUser["cod_user"]!)")
+        self.miColectionView!.reloadData()
+    }
     /*
     // MARK: - Navigation
 
@@ -83,10 +89,6 @@ class ResumeCollectionViewController: UICollectionViewController {
         catch{
             print("Erroraco al decodificar JSON")
         }
-        
-        
-        
-      
     }
 /*
     func getNotes2(id: String) {
@@ -127,6 +129,7 @@ class ResumeCollectionViewController: UICollectionViewController {
         // #warning Incomplete implementation, return the number of items
         return dataSource.count
     }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
     //override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -141,11 +144,13 @@ class ResumeCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Asignamos a selected lis la lista seleccionada
+        selectedNote = dataSource[indexPath.item]
         selectedList = dataSource[indexPath.item].tittle
         selectedContent = dataSource[indexPath.item].content
         //Asignamos miVista al ViewController ListasViewController que le hemos puesto ese id
         let miVista = storyboard?.instantiateViewController(withIdentifier: "listasController") as! ListasViewController
         //Asignamos a la variable intercambio el valor de la celda seleccionada
+        miVista.noteIntercambio = selectedNote
         miVista.intercambio = selectedList
         miVista.intercambioContent = selectedContent
         //Envio a la otra pantalla

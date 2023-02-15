@@ -125,6 +125,11 @@ class LogInViewController: UIViewController {
             }
             
             semaphore.wait()
+            
+            if(flag) {
+                clearFields()
+            }
+            
             return flag
         } else {
             clearFields()

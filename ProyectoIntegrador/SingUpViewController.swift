@@ -38,45 +38,69 @@ class SingUpViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func signUp(_ sender: Any) {
-            let name = txtName.text ?? ""
-            let email = txtEmail.text ?? ""
-            let pwd = txtPassword.text ?? ""
-            let surname = txtSurname.text ?? ""
-            let date = txtDate.text ?? "2023-01-01"
-               if (name != "" && email != "" && surname != "" && date != "" && pwd != "" ) {
-                   let user = User(cod_user: nil, name: name, surname: surname, email: email, birthday: date, password: pwd)
-                   createUser(user: user) { (error) in
-                       if let error = error as NSError? {
-                           if error.code == 400 {
-                               DispatchQueue.main.async {
-                                   self.lblError.text = "Email already exists in the database"
-                               }
-                               return
-                           }else{
-                               DispatchQueue.main.async {
-                                   self.lblError.text = "Error creating User. Try later."
-                               }
-                           }
-                           
-                           print("Error creating User.")
-                           return
-                       }
-                       
-                       DispatchQueue.main.async {
-                           self.txtName.text = ""
-                           self.txtSurname.text = ""
-                           self.txtEmail.text = ""
-                           self.txtDate.text = ""
-                           self.txtPassword.text = ""
-                           self.lblError.text = ""
-                           self.dismiss(animated: true)
-                       }
-                   }
-               } else {
-                   lblError.text = "Fill all fields"
-               }
+        let name = txtName.text ?? ""
+        let email = txtEmail.text ?? ""
+        let pwd = txtPassword.text ?? ""
+        let surname = txtSurname.text ?? ""
+        let date = txtDate.text ?? "2023-01-01"
+        if (name != "" && email != "" && surname != "" && date != "" && pwd != "" ) {
+            if (checkEmailAndPassword(email: email, password: pwd)){
+                let user = User(cod_user: nil, name: name, surname: surname, email: email, birthday: date, password: pwd)
+                createUser(user: user) { (error) in
+                    if let error = error as NSError? {
+                        if error.code == 400 {
+                            DispatchQueue.main.async {
+                                self.lblError.text = "Email already exists in the database"
+                            }
+                            return
+                        }else{
+                            DispatchQueue.main.async {
+                                self.lblError.text = "Error creating User. Try later."
+                            }
+                        }
+                        
+                        print("Error creating User.")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.txtName.text = ""
+                        self.txtSurname.text = ""
+                        self.txtEmail.text = ""
+                        self.txtDate.text = ""
+                        self.txtPassword.text = ""
+                        self.lblError.text = ""
+                        self.dismiss(animated: true)
+                    }
+                }
+            }
+        } else {
+            lblError.text = "Fill all fields"
         }
-
+        
+    }
+    
+    func checkEmailAndPassword(email: String, password: String) -> Bool {
+        // Comprobamos que el email tenga un formato válido
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        
+        // Comprobamos que la password tenga al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número
+        let passwordRegEx = "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}"
+        let passwordPred = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
+        
+        if(!(emailPred.evaluate(with: email))){
+            lblError.text = "Invalid Email"
+            return false
+        }
+        /*
+        if (!(passwordPred.evaluate(with: password))){
+            lblError.text = "Invalid Password: at least 8 characters, uppercase, lowercase ans a number."
+            return false
+        }
+        */
+        return true
+    }
     
     func createUser(user: User, completion: @escaping (_ error: Error?) -> Void) {
         guard let url = URL(string: "\(Config.shared.staticURL)users/") else { return }
@@ -117,15 +141,15 @@ class SingUpViewController: UIViewController {
         
         task.resume()
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -9,15 +9,10 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    
-    
     @IBOutlet weak var lblUserEmail: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
-    
-    
-    
-    
-    
+    @IBOutlet weak var lblSurname: UILabel!
+    @IBOutlet weak var lblBirthday: UILabel!
     
     typealias typeUser = [String:String]
     var currentUser = typeUser()
@@ -28,12 +23,14 @@ class ProfileViewController: UIViewController {
         
         lblUserName.text = currentUser["name"]
         lblUserEmail.text = currentUser["email"]
+        lblSurname.text = currentUser["surname"]
+        lblBirthday.text = currentUser["birthday"]
         
     }
     
     @IBAction func logOut(_ sender: Any) {
         let miStoryBoard = UIStoryboard(name: "Main", bundle: nil)
-       self.tabBarController?.dismiss(animated: true)
+        self.tabBarController?.dismiss(animated: true)
         
         }
         
